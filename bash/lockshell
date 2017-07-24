@@ -1,0 +1,82 @@
+#!/bin/bash
+
+
+clr()
+{
+    printf "\033c"
+}
+
+stty -echo
+clr
+read -p "Enter password: " pass1
+echo
+while [ "$pass1" = "" ]; do
+    echo "Password cannot be empty!"
+    read -p "Enter password: " pass1
+    echo
+done
+
+read -p "Confirm password: " pass2
+echo
+while [ "$pass1" != "$pass2" ]; do
+    echo "Different passwords entered!"
+    read -p "Enter password: " pass1
+    echo
+    while [ "$pass1" = "" ]; do
+	echo "Password cannot be empty!"
+	read -p "Enter password: " pass1
+	echo
+    done
+
+    read -p "Confirm password: " pass2
+    echo
+done
+
+stty echo
+read -p "Enter message: " message
+stty -echo
+
+t=0
+trap "let 't++'" 20 15 3 2
+
+clr
+if [ -n "$message" ]; then
+    prompt=`echo -n "Message: $message"`
+fi
+
+prompt=`echo -ne "${prompt}\nShell is locked..."`
+echo "$prompt"
+start=$SECONDS
+read -p "Enter password: " pass
+echo
+count=0
+until [ "$pass1" = "$pass" ]; do
+    let "count++"
+    let "mod=count%3"
+    clr
+    echo "$prompt"
+    if [ $mod -eq 0 ]; then
+	echo "$count failed password(s). 30 second input lock..."
+	start_time=$SECONDS
+	while true; do
+	    total_time=$(( SECONDS - start_time ))
+	    if [ $total_time -ge 30 ]; then
+		break
+	    fi
+	done
+    else
+	echo "$count failed password(s)."
+    fi
+
+    read -p "Enter password: " pass
+    echo
+done
+
+lock_time=$(( SECONDS - start ))
+clr
+echo "Shell unlocked!"
+echo "$count failed password(s) entered."
+echo "$t signal(s) sent."
+echo "The shell was locked for ${lock_time}s."
+stty echo
+exit 0
