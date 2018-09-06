@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/PrestonMonteWest/Bin/issues"
   },
-  "homepage": "https://github.com/PrestonMonteWest/Bin#readme"
+  "homepage": "https://github.com/PrestonMonteWest/Bin#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^4.0.0"
+  }
 }
