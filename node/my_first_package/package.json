@@ -1,0 +1,23 @@
+{
+  "name": "my_first_package",
+  "version": "1.0.0",
+  "description": "My first node package",
+  "main": "index.js",
+  "scripts": {
+    "index": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrestonMonteWest/Bin.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Preston West",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/PrestonMonteWest/Bin/issues"
+  },
+  "homepage": "https://github.com/PrestonMonteWest/Bin#readme"
+}
